@@ -7,10 +7,10 @@ add_executable(${TARGET_NAME}
 )
 
 # Link the libraries
-# target_link_libraries (${TARGET_NAME} 
-#                         PUBLIC 
-#                             bareMetal_efr32
-# )
+target_link_libraries (${TARGET_NAME} 
+                        PUBLIC 
+                            emlib
+)
 
 # Add the binary for flashing
 create_bin_output(${TARGET_NAME})
