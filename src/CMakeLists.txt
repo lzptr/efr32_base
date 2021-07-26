@@ -1,4 +1,9 @@
-set(TARGET_NAME efr_base)
+# EFR32 bare metal example
+# Copy this to your main projects src folder and build it using cmake
+#
+# You also need a cmake file for the poject where you link against the bare metal libary.
+
+set(TARGET_NAME efr32_bareMetal_example)
 
 # Create the executable target
 add_executable(${TARGET_NAME}
@@ -9,7 +14,7 @@ add_executable(${TARGET_NAME}
 # Link the libraries
 target_link_libraries (${TARGET_NAME} 
                         PUBLIC 
-                            emlib
+                            bareMetal_efr32
 )
 
 # Add the binary for flashing

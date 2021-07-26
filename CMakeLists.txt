@@ -21,9 +21,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 ##### Project Setup #####
 
-# ${DEVICE} sets the target specific model name
-if (NOT DEVICE)
-    set(DEVICE EFR32MG12P332F1024GL125)  # Sets device / used to locate HAL files
+# ${EFR32_DEVICE} sets the target specific model name
+if (NOT EFR32_DEVICE)
+    set(EFR32_DEVICE EFR32MG12P332F1024GL125)  # Sets device / used to locate HAL files
     set(FLASH_ORIGIN 0x00000000)         # Used to specify application start address
     # set(BOARD BRD4166A)				 # Thunderboard Sense 2
     # set(BLE_LIB EFR32MG12P)
@@ -32,9 +32,10 @@ endif ()
 
 # Add additional modules from the platform needed for the project
 include(${CMAKE_CURRENT_LIST_DIR}/libs/platforms/toolchain/firmware.cmake)
-add_subdirectory(libs/sdk_support)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/platforms/bareMetal_efr32)
+#add_subdirectory(libs/silabs)
 
-# Add the subdirs for the project
+# Add the subdirs with the actual code
 add_subdirectory(src)
 
 

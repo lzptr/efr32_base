@@ -1,3 +1,10 @@
+/**
+ *  Baremetal efr32mg12p on the thunderboard sense 2 board example.
+ *  Hold Button 0 to light up the red led.
+ *  Hold Button1 to light up the green led.
+ * 
+ */
+
 #include <stdint.h>
 
 
