@@ -1,74 +1,75 @@
 /**
- *  Baremetal efr32mg12p on the thunderboard sense 2 board example.
- *  Hold Button 0 to light up the red led.
- *  Hold Button1 to light up the green led.
+ *  Simple UART example using the sdk_support library on a thunderboard sense 2
  * 
  */
 
+#include <stdlib.h>
 #include <stdint.h>
+#include "em_cmu.h"
+#include "em_gpio.h"
+#include "em_usart.h"
+#include "em_chip.h"
 
 
-volatile uint32_t* const CMU_ClockBase = (uint32_t*)0x400E4000;
-volatile uint32_t* const CMU_HFBUSCLKEN0 = (uint32_t*)0x400E40B0;
-uint32_t const CMU_GPIO_PORT = 3;
-
-volatile uint32_t* const GPIO_PortD_Base = (uint32_t*)0x4000A090;
-volatile uint32_t* const GPIO_PortD_PinModeHigh = (uint32_t*)0x4000A098;
-volatile uint32_t* const GPIO_PortD_DOUT = (uint32_t*)0x4000A09C;
-volatile uint32_t* const GPIO_PortD_DIN = (uint32_t*)0x4000A0AC;
-
-#define PB0 14
-#define PB1 15
-
-#define LED_RED 8
-#define LED_GREEN 9
+#define BUFFER_SIZE 80
+#define  HFXOFrequency 32000000UL
 
 
-void initGPIO(void) 
-{
-  // Enable GPIO clock
-  *CMU_HFBUSCLKEN0 |= (1 << CMU_GPIO_PORT);
-  
-  // Set Port D, Pin15 (PB1) and Pin14 (PB0) as input
-  uint8_t inputMode = 1; // Input
-  *GPIO_PortD_PinModeHigh = (0x0FFFFFFF & *GPIO_PortD_PinModeHigh) | (inputMode << 28u);
-  *GPIO_PortD_PinModeHigh = (0xF0FFFFFF & *GPIO_PortD_PinModeHigh) | (inputMode << 24u);
-
-  inputMode = 4; // Push Pull 
-  *GPIO_PortD_PinModeHigh = (0xFFFFFF0F & *GPIO_PortD_PinModeHigh) | (inputMode << 4u);
-  *GPIO_PortD_PinModeHigh = (0xFFFFFFF0 & *GPIO_PortD_PinModeHigh) | (inputMode);
-}
 
 int main() 
 {
+  CHIP_Init();
+  
+  // Enable oscillator to GPIO and USART2 modules
+  CMU_ClockEnable(cmuClock_GPIO, true);
+  CMU_ClockEnable(cmuClock_USART2, true);
 
-  // Initializations
-  initGPIO();
+  // set pin modes for UART TX and RX pins
+  GPIO_PinModeSet(gpioPortA, 7, gpioModePushPull, 1);
+  GPIO_PinModeSet(gpioPortA, 6, gpioModeInput, 0);
 
+  // Initialize USART asynchronous mode and route pins
+  USART_InitAsync_TypeDef init = {  usartEnable,           /* Enable RX/TX when initialization is complete. */                     \
+                                    0,                     /* Use current configured reference clock for configuring baud rate. */ \
+                                    9600,                /* 9600 bits/s. */                                                    \
+                                    usartOVS16,            /* 16x oversampling. */                                                 \
+                                    usartDatabits8,        /* 8 data bits. */                                                      \
+                                    usartNoParity,         /* No parity. */                                                        \
+                                    usartStopbits1,        /* 1 stop bit. */                                                       \
+                                    false,                 /* Auto CS functionality enable/disable switch */                       \
+                                  };
+  USART_InitAsync(USART2, &init);
+  USART2->ROUTELOC0 |= (USART_ROUTELOC0_RXLOC_LOC0) | USART_ROUTELOC0_TXLOC_LOC2;
+  USART2->ROUTEPEN |= USART_ROUTEPEN_TXPEN | USART_ROUTEPEN_RXPEN;
 
+  int i,j;
+  char txBuffer[] = "Hello World";
+  for (i = 0 ; txBuffer[i] != 0; i++)
+  {
+    USART_Tx(USART2, txBuffer[i]);
+  }
+
+  char buffer[BUFFER_SIZE];
   while (1) 
   {
-    // Buttons are active low
-    if ( (*GPIO_PortD_DIN & (1 << PB0)) == 0)
+
+    // Read a line from the UART
+    for (i = 0; i < BUFFER_SIZE - 1 ; i++ )
     {
-      // LED0 On
-      *GPIO_PortD_DOUT |= (1 << LED_RED); 
-    }
-    else
-    {
-      // LED0 Off
-      *GPIO_PortD_DOUT &= ~(1 << LED_RED);
+      buffer[i] = USART_Rx(USART2);
+      if (buffer[i] == '\r')
+      {
+        break; // Breaking on CR prevents it from being counted in the number of bytes
+      }
     }
 
-    if ((*GPIO_PortD_DIN & (1 << PB1)) == 0)
+    // Echo the line back, adding CRLF
+    for (j = 0; j < i ; j ++ )
     {
-      // LED1 On
-      *GPIO_PortD_DOUT |= (1 << LED_GREEN); 
+      USART_Tx(USART2, buffer[j]);
     }
-    else
-    {
-      // LED1 Off
-      *GPIO_PortD_DOUT &= ~(1 << LED_GREEN); 
-    }
+
+    USART_Tx(USART2, '\r');
+    USART_Tx(USART2, '\f');
   }
 }

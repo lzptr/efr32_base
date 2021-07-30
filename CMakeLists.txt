@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.13)
 
-set(ARM_TOOLCHAIN_PATH /opt/toolchain/gcc-arm-none-eabi-7-2017-q4-major/)
+set(ARM_TOOLCHAIN_PATH /opt/toolchain/gcc-arm-none-eabi-9-2020-q2-update/)
 
 # Set toolchain file from the platform (Needs to be set before the project name)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_LIST_DIR}/libs/platforms/toolchain/arm-none-eabi.cmake)
 
-project(efr_base)
+project(efr32_base)
 
 enable_language(C CXX ASM)
 
@@ -30,10 +30,13 @@ if (NOT EFR32_DEVICE)
 endif ()
 
 
+set(CPU_FAMILY_U EFR32MG12P)
+set(CPU_FAMILY_L efr32mg12p)
+
 # Add additional modules from the platform needed for the project
 include(${CMAKE_CURRENT_LIST_DIR}/libs/platforms/toolchain/firmware.cmake)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/platforms/bareMetal_efr32)
-#add_subdirectory(libs/silabs)
+add_subdirectory(libs/silabs/sdk_support)
 
 # Add the subdirs with the actual code
 add_subdirectory(src)
