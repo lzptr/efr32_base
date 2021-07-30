@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Windows WSL Task",
+            "cwd": "${workspaceFolder}",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "external",
+            "gdbTarget": "${env:WSL_HOST_IP}:2331",
+            "executable": "${workspaceFolder}/build/bin/efr32_base",
+            "svdFile": "${workspaceFolder}/libs/platforms/chipRegisterDescriptions/EFR32MG12P332F1024GL125.svd",
+            "runToEntryPoint": "main",
+            "armToolchainPath": "/opt/toolchain/gcc-arm-none-eabi-9-2020-q2-update/bin",
+            "preLaunchTask": "launchJLink",
+            "postDebugTask": "postDebugKill",
+            "postLaunchCommands": ["monitor halt", "monitor reset"],
+        }
+    ]
+}

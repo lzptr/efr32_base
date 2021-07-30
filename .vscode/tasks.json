@@ -1,0 +1,61 @@
+{
+    "version": "2.0.0",
+    "options": {
+        "shell": {
+          "executable": "bash",
+          "args": ["-ci"]
+        }
+      },
+      "tasks": 
+      [
+        {
+            "label": "launchJLink",
+            "command": "JLinkGDBServerCL.exe -if swd -device EFR32MG12PxxxF1024 -nolocalhostonly",
+            "type": "shell",
+            "isBackground": true,
+            "problemMatcher": []
+        },
+
+        {
+            "label": "postDebugKill",
+            "command": "echo ${input:terminate}",
+            "type": "shell",
+            "problemMatcher": []
+        },
+
+        {
+          "label": "CreateBuildFolder",
+          "type": "shell",
+          "command": "mkdir -p build",
+          "options": {
+              "cwd": "${workspaceFolder}"
+          }
+        },
+
+        {
+          "label": "BuildDebug",
+          "type": "shell",
+          "command": "cmake -DCMAKE_BUILD_TYPE=Debug .. && make efr32_base VERBOSE=1 -j8",
+          "options": {
+              "cwd": "${workspaceFolder}/build"
+          },
+          "group": {
+              "kind": "build",
+              "isDefault": true
+          },
+          "dependsOn": [
+              "CreateBuildFolder"
+          ],
+          "problemMatcher": []
+      },
+
+      ],
+        "inputs": [
+          {
+            "id": "terminate",
+            "type": "command",
+            "command": "workbench.action.tasks.terminate",
+            "args": "terminateAll"
+          }
+        ],
+}
