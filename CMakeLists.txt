@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.13)
 
 # Set the arm toolchain path 
-if (NOT ARM_TOOLCHAIN_PATH)
-    set(ARM_TOOLCHAIN_PATH /opt/toolchain/gcc-arm-none-eabi-9-2020-q2-update/)
-endif
+if ( NOT ARM_TOOLCHAIN_PATH )
+    set( ARM_TOOLCHAIN_PATH /opt/toolchain/gcc-arm-none-eabi-9-2020-q2-update/ )
+endif()
 message("Using following path for arm toolchain: ${ARM_TOOLCHAIN_PATH}")
 
 # Set toolchain file from the platform (Needs to be set before the project name)
