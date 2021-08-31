@@ -5,10 +5,9 @@ add_executable(${CMAKE_PROJECT_NAME}
 # Link the libraries
 target_link_libraries (${CMAKE_PROJECT_NAME} 
                         PUBLIC 
-                            gcc 
+                            gcc
                             c 
                             nosys
-                            bareMetal_efr32
                             efr32_device
                             emlib)
 
