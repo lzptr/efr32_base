@@ -28,7 +28,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 if (NOT EFR32_DEVICE)
     set(EFR32_DEVICE EFR32MG12P332F1024GL125)  # Sets device / used to locate HAL files
     set(BOARD BRD4166A)				 # Thunderboard Sense 2
-    # set(BLE_LIB EFR32MG12P)
+    set(BL_MESH ON)
+    set(BL_PSSTORE ON)
 endif ()
 message("EFR32 Device used: ${EFR32_DEVICE}")
 
