@@ -18,7 +18,7 @@ Inspired by: https://github.com/ryankurte/efm32-base
 
 ## 1) Dependencies
 
- - VSCode 
+ - VSCode with C/C++ and Cortex-Debug Extension 
  - cmake 
  - make
  - arm-none-eabi-gcc - You can use the bootstrap.sh script to automatically install it in /opt/toolchain
@@ -73,6 +73,20 @@ Add these lines to your WSL ~/.bashrc so that these variables are always set whe
 
 I have also set up VS Code to use the WSL2 bash as my default terminal. This ensures, that I
 always open up the wsl bash which set's the correct environmental variables.
+
+After that just hit F5 and start a debugging session.
+The cortex-debug extension can show the actual register values of chip while debugging.
+For that purpose, the launch file uses a svd file that is part of the platforms submodule and can
+be found here:
+	${workspaceFolder}/libs/platforms/chipRegisterDescriptions/EFR32MG12P332F1024GL125.svd
+
+If you use another chip, you need to add your own SVD file.
+Here is a blog post where you can find other SVD files:
+	https://community.silabs.com/s/article/svd-file-for-efm32-device?language=en_US
+
+With all of ths set in place, you can use the visual debugger of vs code to debug you 
+microcontroller!
+
 
 
 ### Linux
