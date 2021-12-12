@@ -1,6 +1,6 @@
 [submodule "libs/platforms"]
 	path = libs/platforms
-	url = https://github.com/RoboGnome/platforms.git
+	url =../platforms.git
 [submodule "libs/silabs/sdk_support"]
 	path = libs/silabs/sdk_support
-	url = https://github.com/RoboGnome/sdk_support.git
+	url = ../sdk_support.git
