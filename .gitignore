@@ -71,6 +71,7 @@ __pycache__
 #.vscode/
 *.code-workspace
 *cortex-debug*
+*.cache 
 
 # Local History for Visual Studio Code
 .history/

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 # Set the arm toolchain path 
 if ( NOT ARM_TOOLCHAIN_PATH )
-    set( ARM_TOOLCHAIN_PATH /opt/toolchain/gcc-arm-none-eabi-9-2020-q2-update/ )
+    set( ARM_TOOLCHAIN_PATH /opt/toolchain/gcc-arm-none-eabi-10.3-2021.10/ )
 endif()
 message("Using following path for arm toolchain: ${ARM_TOOLCHAIN_PATH}")
 
