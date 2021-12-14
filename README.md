@@ -120,9 +120,9 @@ To automate the restart process, I created a windows batch file with the followi
 Then you need to create a windows task that get's run when you log in.
 Here is an example for that: https://medium.com/swlh/how-to-run-ubuntu-in-wsl2-at-startup-on-windows-10-c4567d6c48f1
 
-This basically restarts the udev service and reloads all udev rules.
+This basically restarts the udev service and reloads all udev rules when you log in into your account.
 
-If you don't use the window batch script, you need to ake care of the order of the steps.
+If you don't use the window batch script, you need to take care of the order of the steps.
 If the the usb device is already attached to WSL2, then restarting udev and reloading doesn't seem to have an effect.
 First detach the device, then restart udev and then reattach.
 
@@ -196,5 +196,5 @@ microcontroller!
 4. Add your source files to the CMakeLists.txt file inside the src folder
 5. Link to the sdk modules you need (emlib, efr32_device. etc.) -> See the CMakeLists.txt file inside the silabs/sdk_support folder for a list of modules that are currently supported by the cmake build system
 6. Update the executable name in the .vscode/launch.json file
-7. Have fun coding and debugging in vs code!
+7. Have fun coding and debugging EFR32 chips in vs code!
 
