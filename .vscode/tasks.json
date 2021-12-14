@@ -10,7 +10,7 @@
       [
         {
             "label": "launchJLink",
-            "command": "JLinkGDBServerCL.exe -if swd -device EFR32MG12PxxxF1024 -nolocalhostonly",
+            "command": "\"/mnt/c/Program Files/SEGGER/JLink_V758e/JLinkGDBServerCL.exe\" -if swd -device EFR32MG12PxxxF1024 -nolocalhostonly",
             "type": "shell",
             "isBackground": true,
             "problemMatcher": []
