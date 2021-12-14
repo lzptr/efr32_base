@@ -145,7 +145,7 @@ If you use another chip, you need to add your own SVD file.
 Here is a blog post where you can find other SVD files:
 	https://community.silabs.com/s/article/svd-file-for-efm32-device?language=en_US
 
-With all of ths set in place, you can use the visual debugger of vs code to debug you 
+With all of this set in place, you can use the visual debugger of vs code to debug you 
 microcontroller!
 
 ---
@@ -182,7 +182,7 @@ Here is a blog post where you can find other SVD files:
 
 Note that the debugging session using USB passthrough runs much smoother and the overall debugging experience ist faster.
 
-With all of ths set in place, you can use the visual debugger of vs code to debug you 
+With all of this set in place, you can use the visual debugger of vs code to debug you 
 microcontroller!
 
 --- 
