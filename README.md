@@ -2,7 +2,7 @@
 
 This base project is designed to provide a cmake based project template for building embedded software for
 EFR32 microcontrollers from Silicon Labs.
-It uses the Gecko SDK project from: https://github.com/RoboGnome/sdk_support as a submodule and adds additional
+It uses the Gecko SDK project as a submodule and adds additional
 cmake files to the sdk, that allows to link to single modules from the SDK.
 
 Designed and tested on Windows with WSL2. Linux should also work out of the box.
@@ -33,10 +33,6 @@ Inspired by: https://github.com/ryankurte/efm32-base
 ## 2) Getting Started
 
 Download the repository and it's submodules.
-Since the download button from the site does not include submodules, you can also clone
-them with:
-
-	$ git@github.com:RoboGnome/efr32_base.git --recursive
 
 To get the cross compiler and the debugging tools you can execute the bootstrap script:
 
