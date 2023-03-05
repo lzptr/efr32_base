@@ -9,11 +9,11 @@
             "servertype": "jlink",
             "device": "EFR32MG12PxxxF1024",
             "interface": "swd",
-            "serverpath": "/opt/toolchain/JLink_Linux_V758e_x86_64/JLinkGDBServerCLExe",
+            "serverpath": "/opt/toolchain/JLink_Linux_V786a_x86_64/JLinkGDBServerCLExe",
             "executable": "${workspaceFolder}/build/bin/efr32_base",
             "svdFile": "${workspaceFolder}/libs/platforms/chipRegisterDescriptions/EFR32MG12P332F1024GL125.svd",
             "runToEntryPoint": "main",
-            "armToolchainPath": "/opt/toolchain/gcc-arm-none-eabi-10.3-2021.10/bin",
+            "armToolchainPath": "/opt/toolchain/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin",
             "postLaunchCommands": ["monitor halt", "monitor reset"],
         },
         {
